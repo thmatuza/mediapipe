@@ -3,6 +3,7 @@
     "/BUILD",
     "mediapipe/BUILD",
     "mediapipe/examples/ios/common/BUILD",
+    "mediapipe/examples/ios/facebeautification/BUILD",
     "mediapipe/examples/ios/facedetectioncpu/BUILD",
     "mediapipe/examples/ios/facedetectiongpu/BUILD",
     "mediapipe/examples/ios/faceeffect/BUILD",
@@ -23,6 +24,7 @@
     "mediapipe/objc/testing/app/BUILD"
   ],
   "buildTargets" : [
+    "//mediapipe/examples/ios/facebeautification:FaceBeautificationApp",
     "//mediapipe/examples/ios/facedetectioncpu:FaceDetectionCpuApp",
     "//mediapipe/examples/ios/facedetectiongpu:FaceDetectionGpuApp",
     "//mediapipe/examples/ios/faceeffect:FaceEffectApp",
@@ -93,6 +95,7 @@
     "mediapipe/examples/ios",
     "mediapipe/examples/ios/common",
     "mediapipe/examples/ios/common/Base.lproj",
+    "mediapipe/examples/ios/facebeautification",
     "mediapipe/examples/ios/facedetectioncpu",
     "mediapipe/examples/ios/facedetectiongpu",
     "mediapipe/examples/ios/faceeffect",

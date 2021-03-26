@@ -570,3 +570,21 @@ cc_test(
         "//mediapipe/framework/port:parse_text_proto",
     ],
 )
+
+cc_library(
+    name = "beautification_calculator",
+    srcs = ["beautification_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework/formats:landmark_cc_proto",
+        "//mediapipe/framework/formats:image_frame",
+        "//mediapipe/framework/formats:image_frame_opencv",
+        "//mediapipe/framework/port:status",
+        "//mediapipe/framework/port:ret_check",
+        "//mediapipe/util:color_cc_proto",
+        "//mediapipe/framework/port:opencv_core",
+        "//mediapipe/framework/port:opencv_gapi",
+    ],
+    alwayslink = 1,
+)

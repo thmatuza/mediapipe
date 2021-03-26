@@ -1,0 +1,54 @@
+# MediaPipe graph that performs face mesh with TensorFlow Lite on GPU.
+# GPU buffer. (GpuBuffer)
+input_stream: "input_video"
+# Max number of faces to detect/process. (int)
+input_side_packet: "num_faces"
+# Output image with rendered results. (GpuBuffer)
+output_stream: "output_video"
+node {
+  calculator: "FlowLimiterCalculator"
+  input_stream: "input_video"
+  input_stream: "FINISHED:output_video"
+  input_stream_info: {
+    tag_index: "FINISHED"
+    back_edge: true
+  }
+  output_stream: "throttled_input_video"
+}
+# Subgraph that detects faces and corresponding landmarks.
+node {
+  calculator: "FaceLandmarkFrontGpu"
+  input_stream: "IMAGE:throttled_input_video"
+  input_side_packet: "NUM_FACES:num_faces"
+  output_stream: "LANDMARKS:multi_face_landmarks"
+  output_stream: "ROIS_FROM_LANDMARKS:face_rects_from_landmarks"
+  output_stream: "DETECTIONS:face_detections"
+  output_stream: "ROIS_FROM_DETECTIONS:face_rects_from_detections"
+}
+
+node {
+  calculator: "FaceLandmarksToContoursCalculator"
+  input_stream: "LANDMARKS:multi_face_landmarks"
+  output_stream: "ELEMS_CONTS:multi_face_elems_contours"
+  output_stream: "FACE_CONTS:multi_face_face_contours"
+}
+
+node{
+  calculator: "GpuBufferToImageFrameCalculator"
+  input_stream: "throttled_input_video"
+  output_stream: "throttled_input_video_cpu"
+}
+
+node {
+  calculator: "BeautificationCalculator"
+  input_stream: "ELEMS_CONTS:multi_face_elems_contours"
+  input_stream: "FACE_CONTS:multi_face_face_contours"
+  input_stream: "IMAGE:throttled_input_video_cpu"
+  output_stream: "IMAGE:output_video_cpu"
+}
+
+node: {
+  calculator: "ImageFrameToGpuBufferCalculator"
+  input_stream: "output_video_cpu"
+  output_stream: "output_video"
+}

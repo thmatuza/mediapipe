@@ -203,7 +203,7 @@ new_local_repository(
 new_local_repository(
     name = "macos_opencv",
     build_file = "@//third_party:opencv_macos.BUILD",
-    path = "/usr/local/opt/opencv@3",
+    path = "/usr/local/opt/opencv@4",
 )
 
 new_local_repository(
@@ -232,10 +232,12 @@ http_archive(
 # '-DBUILD_PROTOBUF=OFF -DBUILD_opencv_dnn=OFF'.
 http_archive(
     name = "ios_opencv",
-    sha256 = "7dd536d06f59e6e1156b546bd581523d8df92ce83440002885ec5abc06558de2",
+    #sha256 = "7dd536d06f59e6e1156b546bd581523d8df92ce83440002885ec5abc06558de2",
+    sha256 = "bd64dac581ebc2c70129a60a8d9f9393fa431015f26fc5b316b3ff3d85740ca3",
     build_file = "@//third_party:opencv_ios.BUILD",
     type = "zip",
-    url = "https://github.com/opencv/opencv/releases/download/3.2.0/opencv-3.2.0-ios-framework.zip",
+    #url = "https://github.com/opencv/opencv/releases/download/3.2.0/opencv-3.2.0-ios-framework.zip",
+    url = "http://localhost:8080/opencv-4.5.1-ios-framework.zip",
 )
 
 # You may run setup_android.sh to install Android SDK and NDK.

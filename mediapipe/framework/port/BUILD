@@ -239,6 +239,16 @@ cc_library(
 )
 
 cc_library(
+    name = "opencv_gapi",
+    hdrs = ["opencv_gapi_inc.h"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":opencv_core",
+        "//third_party:opencv",
+    ],
+)
+
+cc_library(
     name = "opencv_imgproc",
     hdrs = ["opencv_imgproc_inc.h"],
     visibility = ["//visibility:public"],
